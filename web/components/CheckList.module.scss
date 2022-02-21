@@ -1,0 +1,9 @@
+.todoItem {
+    label {
+        margin-left: 0.5rem;
+    }
+
+    input[type=checkbox]:checked + label {
+        text-decoration: line-through;
+    }
+}
