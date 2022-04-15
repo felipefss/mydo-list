@@ -1,30 +1,24 @@
-import { Container } from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+// Context
+import { TodoProvider } from '../context/TodoContext';
 
 // Components
 import TodoList from '../components/TodoList';
+import TopBar from '../components/TopBar';
+
+
+//TODO: Edit items
+//TODO: Create dark mode
+//TODO: Make input element smaller
 
 function HomePage() {
   return (
-    <>
-      <Navbar bg="primary" variant="dark" expand="sm">
-        <Container fluid>
-          <Navbar.Brand href="#">MyDo List</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav.Link className="nav-text" bsPrefix="" href="#">
-              New List
-            </Nav.Link>
-            {/* <Nav.Link className="nav-text" href="#">Settings</Nav.Link> */}
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+    <TodoProvider>
+      <TopBar />
 
       <div className="content">
         <TodoList />
       </div>
-    </>
+    </TodoProvider>
   );
 }
 

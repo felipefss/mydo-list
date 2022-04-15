@@ -1,5 +1,8 @@
-import { BaseSyntheticEvent, KeyboardEvent, useEffect, useState } from "react";
+import { BaseSyntheticEvent, KeyboardEvent, useContext, useState } from "react";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
+
+// Contexts
+import { TodoContext } from "../context/TodoContext";
 
 // Components
 import CheckList from "./CheckList";
@@ -7,38 +10,14 @@ import CheckList from "./CheckList";
 // Styles
 import styles from "./TodoList.module.scss";
 
-
-  //TODO: Edit items
-  //TODO: Create dark mode
-  //TODO: Make input element smaller
-  //TODO: Have an undo last action
-
 export default function TodoList() {
-  const [todos, setTodos] = useState<string[]>([]);
-  const [checked, setChecked] = useState<string[]>([]);
+  const { todos, addTodo, checked, addChecked } = useContext(TodoContext);
+
   const [addText, setAddText] = useState("");
-
-  useEffect(() => {
-    try {
-      localStorage.todos && setTodos(localStorage.todos.split(','));
-      
-      localStorage.checked && setChecked(localStorage.checked.split(','));
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.todos = todos.toString();
-  }, [todos]);
-  
-  useEffect(() => {
-    localStorage.checked = checked.toString();
-  }, [checked]);
 
   const addItem = (): void => {
     if (addText.length) {
-      setTodos((list: string[]) => [...list, addText]);
+      addTodo({ type: "ADD_TODO", payload: addText });
       setAddText("");
     }
   };
@@ -53,20 +32,20 @@ export default function TodoList() {
     { target }: BaseSyntheticEvent,
     checkIndex: number
   ): void => {
-    setChecked((old: string[]) => [...old, todos[checkIndex]]);
+    addChecked({ type: "CHECK", payload: todos[checkIndex] });
 
     target.checked = false;
-    setTodos(todos.filter((str, i) => i !== checkIndex));
+    addTodo({ type: "REMOVE_TODO", payload: checkIndex.toString() });
   };
 
   const handleUnchecked = (
     { target }: BaseSyntheticEvent,
     checkIndex: number
   ): void => {
-    setTodos((old: string[]) => [...old, checked[checkIndex]]);
+    addTodo({ type: "ADD_TODO", payload: checked[checkIndex] });
 
     target.checked = false;
-    setChecked(checked.filter((str, i) => i !== checkIndex));
+    addChecked({ type: "UNCHECK", payload: checkIndex.toString() });
   };
 
   return (
@@ -89,7 +68,7 @@ export default function TodoList() {
       </Form.Group>
 
       <Stack gap={2}>
-        <CheckList 
+        <CheckList
           list={todos}
           idPrefix="Todo"
           handleCheck={handleChecked}
