@@ -1,9 +1,31 @@
 .todoItem {
+    display: flex;
+
     label {
         margin-left: 0.5rem;
     }
 
     input[type=checkbox]:checked + label {
         text-decoration: line-through;
+    }
+
+    input[type=text] {
+        width: 25rem;
+        margin-left: 0.5rem;
+        margin-right: 1rem;
+    }
+}
+
+.saveEditBtn {
+    margin-left: 0.5rem;
+}
+
+.editPill {
+    margin-left: 4rem;
+    font-size: 1.15rem;
+    align-self: center;
+
+    &:hover {
+        cursor: pointer;
     }
 }

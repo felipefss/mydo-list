@@ -11,13 +11,13 @@ import CheckList from "./CheckList";
 import styles from "./TodoList.module.scss";
 
 export default function TodoList() {
-  const { todos, addTodo, checked, addChecked } = useContext(TodoContext);
+  const { todos, addRemoveTodo, checked, addChecked } = useContext(TodoContext);
 
   const [addText, setAddText] = useState("");
 
   const addItem = (): void => {
     if (addText.length) {
-      addTodo({ type: "ADD_TODO", payload: addText });
+      addRemoveTodo({ type: "ADD_TODO", payload: addText });
       setAddText("");
     }
   };
@@ -35,14 +35,14 @@ export default function TodoList() {
     addChecked({ type: "CHECK", payload: todos[checkIndex] });
 
     target.checked = false;
-    addTodo({ type: "REMOVE_TODO", payload: checkIndex.toString() });
+    addRemoveTodo({ type: "REMOVE_TODO", payload: checkIndex.toString() });
   };
 
   const handleUnchecked = (
     { target }: BaseSyntheticEvent,
     checkIndex: number
   ): void => {
-    addTodo({ type: "ADD_TODO", payload: checked[checkIndex] });
+    addRemoveTodo({ type: "ADD_TODO", payload: checked[checkIndex] });
 
     target.checked = false;
     addChecked({ type: "UNCHECK", payload: checkIndex.toString() });
@@ -50,22 +50,19 @@ export default function TodoList() {
 
   return (
     <>
-      <Form.Group as={Row} className="mb-3">
-        <Col>
-          <Form.Control
-            type="text"
-            placeholder="What to add?"
-            value={addText}
-            onChange={(event) => setAddText(event.target.value)}
-            onKeyUp={detectEnter}
-          />
-        </Col>
-        <Col>
-          <Button variant="outline-dark" onClick={addItem}>
-            Add
-          </Button>
-        </Col>
-      </Form.Group>
+      <div className={styles.mainTextBox}>
+        <Form.Control
+          type="text"
+          placeholder="What to add?"
+          value={addText}
+          onChange={(event) => setAddText(event.target.value)}
+          onKeyUp={detectEnter}
+        />
+
+        <Button variant="outline-dark" onClick={addItem}>
+          Add
+        </Button>
+      </div>
 
       <Stack gap={2}>
         <CheckList

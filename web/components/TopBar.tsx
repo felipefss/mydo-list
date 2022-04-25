@@ -7,10 +7,10 @@ import Nav from "react-bootstrap/Nav";
 import { TodoContext } from "../context/TodoContext";
 
 export default function TopBar() {
-  const { addTodo, addChecked } = useContext(TodoContext);
+  const { addRemoveTodo, addChecked } = useContext(TodoContext);
 
   const wipeLists = () => {
-    addTodo({ type: "WIPE_LIST", payload: null });
+    addRemoveTodo({ type: "WIPE_LIST", payload: null });
     addChecked({ type: "WIPE_LIST", payload: null });
   };
 

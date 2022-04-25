@@ -7,7 +7,8 @@ interface IAction {
 
 interface ITodoContext {
   todos: string[];
-  addTodo: (action: IAction) => void;
+  addRemoveTodo: (action: IAction) => void;
+  editTodo: (index: number, newValue: string) => void;
   checked: string[];
   addChecked: (action: IAction) => void;
 }
@@ -50,8 +51,16 @@ export const TodoProvider: React.FC = ({ children }) => {
     localStorage.checked = checked.toString();
   }, [checked]);
 
-  const addTodo = ({ type, payload }: IAction) => {
+  const addRemoveTodo = ({ type, payload }: IAction) => {
     setTodos(state => reducer(state, { type, payload }));
+  };
+
+  const editTodo = (index: number, newValue: string) => {
+    setTodos(state => {
+      const newState = [...state];
+      newState[index] = newValue;
+      return newState;
+    });
   };
 
   const addChecked = ({ type, payload }: IAction) => {
@@ -62,7 +71,8 @@ export const TodoProvider: React.FC = ({ children }) => {
     <TodoContext.Provider
       value={{
         todos,
-        addTodo,
+        addRemoveTodo,
+        editTodo,
         checked,
         addChecked
       }}

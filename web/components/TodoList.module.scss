@@ -1,3 +1,16 @@
+.mainTextBox {
+    margin-bottom: 1rem;
+    display: flex;
+
+    input[type=text] {
+        width: 27rem;
+    }
+
+    button {
+        margin-left: 1rem;
+    }
+}
+
 .checkedItems {
     margin-top: 2rem;
 
