@@ -3,6 +3,9 @@ import { Container } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
+// Components
+import SwitchTheme from "./SwitchTheme";
+
 // Contexts
 import { TodoContext } from "../context/TodoContext";
 
@@ -25,6 +28,7 @@ export default function TopBar() {
           </Nav.Link>
           {/* <Nav.Link className="nav-text" href="#">Settings</Nav.Link> */}
         </Navbar.Collapse>
+        <SwitchTheme />
       </Container>
     </Navbar>
   );

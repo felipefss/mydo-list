@@ -1,21 +1,74 @@
-body {
-  font-family: Helvetica, sans-serif;
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+:root {
+  /* Color variables */
+  --nav-text-active: #64b5f6;
+  --nav-text: #fff;
+  --nav-dark-bg: #1e1e1e;
+
+  --bg-light: #f5f5f6;
+  --bg-dark: #121212;
+
+  --primary-dark: #2286c3;
+  --primary-text: #212121;
+  --secondary: #6a872d;
+  --dark-mode-text: var(--bg-light);
+  --dark-mode-secondary-text: var(--bg-dark);
 }
 
-/* Color variables */
-$primary: #64b5f6;
-$primary-light: #9be7ff;
-$primary-dark: #2286c3;
-$primary-text: #212121;
+body {
+  font-family: Helvetica, sans-serif;
 
-$background-light: #f5f5f6;
-$background-dark: #e1e2e1;
+  background-color: var(--bg-light);
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: var(--bg-dark);
+
+  nav.navbar {
+    background-color: var(--nav-dark-bg) !important;
+  }
+
+  input[type=text] {
+    background-color: var(--bg-light);
+  }
+
+  button.btn-outline-dark {
+    color: var(--dark-mode-text);
+    border-color: var(--bg-light);
+
+    &:hover {
+      color: var(--dark-mode-secondary-text);
+      border-color: var(--bg-dark);
+      background-color: var(--bg-light);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgb(245 245 246 / 50%);
+    }
+  }
+
+  .content {
+    color: var(--dark-mode-text);
+
+    input[type=checkbox]:checked {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+
+      &+label {
+        text-decoration-color: var(--dark-mode-text);
+      }
+    }
+  }
+}
 
 .nav-text {
-  color: $primary-light;
+  color: var(--nav-text);
 
-  &:hover, &:focus {
-    color: $primary;
+  &:hover,
+  &:focus {
+    color: var(--nav-text-active);
   }
 }
 

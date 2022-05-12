@@ -1,0 +1,17 @@
+.switch {
+  margin-left: 0.5rem;
+  height: 2.2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  input[type=checkbox] {
+    height: 1.3em;
+
+    &:checked {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+  }
+}
